@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ToDo</string>
+
+    <string name="status_prompt">Choose the status</string>
+    <string name="priority_prompt">Choose the priority</string>
+
+
+    <string-array name="status_array">
+        <item>To-Do</item>
+        <item>Done</item>
+    </string-array>
+
+    <string-array name="priority_array">
+        <item>HIGH</item>
+        <item>LOW</item>
+    </string-array>
+</resources>
