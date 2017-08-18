@@ -1,170 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.nidhisingh.todo.activities.DetailActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:scrollbars="vertical">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tasknameInputLayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        >
-        <EditText
-            android:id="@+id/taskname"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.nidhisingh.todo.activities.DetailActivity">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_marginRight="5dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardElevation="5dp">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tasknameInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="15dp">
+
+                    <EditText
+                        android:id="@+id/taskname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Task Name" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/taskNotesInputlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="15dp">
+
+                    <EditText
+                        android:id="@+id/taskNotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Task Notes" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Task Name" />
-    </android.support.design.widget.TextInputLayout>
+            android:orientation="vertical">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/taskNotesInputlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        >
-        <EditText
-            android:id="@+id/taskNotes"
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_marginRight="5dp"
+                card_view:cardCornerRadius="2dp"
+                card_view:cardElevation="5dp">
+
+                <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/segmentedpriority"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    segmentedgroup:sc_border_width="2dp"
+                    segmentedgroup:sc_corner_radius="10dp"
+                    segmentedgroup:sc_tint_color="#29b6f6">
+
+                    <RadioButton
+                        android:id="@+id/buttonhigh"
+                        style="@style/RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="High" />
+
+                    <RadioButton
+                        android:id="@+id/buttonlow"
+                        style="@style/RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Low" />
+                </info.hoang8f.android.segmented.SegmentedGroup>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Task Notes" />
-    </android.support.design.widget.TextInputLayout>
+            android:orientation="horizontal">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:id="@+id/prioritytextView"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="Priority"
-            />
-    <info.hoang8f.android.segmented.SegmentedGroup
-        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/segmentedpriority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal"
-        segmentedgroup:sc_border_width="2dp"
-        segmentedgroup:sc_corner_radius="10dp"
-        android:layout_weight="1"
-        android:layout_gravity="center|end"
-        >
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_viewstatus"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_marginRight="5dp"
+                card_view:cardCornerRadius="2dp"
+                card_view:cardElevation="5dp">
 
-        <RadioButton
-            android:id="@+id/buttonhigh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="High"
-            style="@style/RadioButton" />
+                <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/segmentedstatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    segmentedgroup:sc_border_width="2dp"
+                    segmentedgroup:sc_corner_radius="10dp"
+                    segmentedgroup:sc_tint_color="#29b6f6">
 
-        <RadioButton
-            android:id="@+id/buttonlow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Low"
-            style="@style/RadioButton" />
-    </info.hoang8f.android.segmented.SegmentedGroup>
-</LinearLayout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:id="@+id/statustextView"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="Status"
-            />
-        <info.hoang8f.android.segmented.SegmentedGroup
-            xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/segmentedstatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            segmentedgroup:sc_border_width="2dp"
-            segmentedgroup:sc_corner_radius="10dp"
-            android:layout_weight="1"
-            android:layout_gravity="center|end"
-            >
+                    <RadioButton
+                        android:id="@+id/buttontodo"
+                        style="@style/RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ToDo" />
 
-            <RadioButton
-                android:id="@+id/buttontodo"
-                android:layout_width="wrap_content"
+                    <RadioButton
+                        android:id="@+id/buttondone"
+                        style="@style/RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Done" />
+                </info.hoang8f.android.segmented.SegmentedGroup>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_viewduedatetime"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ToDo"
-                style="@style/RadioButton" />
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_marginRight="5dp"
+                card_view:cardCornerRadius="2dp"
+                card_view:cardElevation="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/buttondone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Done"
-                style="@style/RadioButton" />
-        </info.hoang8f.android.segmented.SegmentedGroup>
-    </LinearLayout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/dueDateButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center|end"
+                        android:layout_marginRight="30dp"
+                        android:text="Change Due Date"
+                        android:textColor="#29b6f6"/>
+
+                    <TextView
+                        android:id="@+id/dueDatetext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:text="Due Date" />
+                </LinearLayout>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/dueTimeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center|end"
+                        android:layout_marginRight="30dp"
+                        android:text="Change Due Time"
+                        android:textColor="#29b6f6"/>
+
+                    <TextView
+                        android:id="@+id/dueTimetext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:text="Due Time" />
+                </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
         <Button
-            android:id="@+id/dueDateButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/savebutton"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Due Date"
-            android:layout_marginRight="30dp"
-            android:layout_gravity="center|end"
-            />
-        <EditText
-            android:id="@+id/dueDatetext"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="Due Date"
-            />
-
+            android:text="Save" />
     </LinearLayout>
+</ScrollView>
 
-
-    <Button
-        android:id="@+id/savebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="Save"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taskNotesInputlayout"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1" />
-
-
-</LinearLayout>

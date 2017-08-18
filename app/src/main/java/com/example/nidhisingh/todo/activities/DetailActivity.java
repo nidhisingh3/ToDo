@@ -1,8 +1,10 @@
 package com.example.nidhisingh.todo.activities;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.annotation.IdRes;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.nidhisingh.todo.R;
@@ -28,18 +32,23 @@ import info.hoang8f.android.segmented.SegmentedGroup;
 public class DetailActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener{
     private EditText taskNameEditText;
     private EditText taskNotesEditText;
+    private TextInputLayout tasknameInputLayout;
     private Button saveButton;
     private RadioButton high;
     private RadioButton low;
     private Button dueDateButton;
-    private EditText duedateText;
+    private Button dueTimeButton;
+    private TextView duedateText;
+    private TextView duetimeText;
+    private RadioButton radiobuttonTodo;
+
     private SegmentedGroup segmentedPriority;
     private SegmentedGroup segmentedStatus;
 
 
     DatabaseHandler db;
     String priority, status;
-    int mYear, mMonth, mDay;
+    int mYear, mMonth, mDay, mHour, mMinute;
 
     String editname, editnotes, editDueDate, editPriority, editStatus, type;
     long editID;
@@ -50,14 +59,20 @@ public class DetailActivity extends AppCompatActivity implements RadioGroup.OnCh
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        priority = "HIGH";
+        status = "TODO";
 
         taskNameEditText = (EditText) findViewById(R.id.taskname);
         taskNotesEditText = (EditText) findViewById(R.id.taskNotes);
         saveButton = (Button) findViewById(R.id.savebutton);
         dueDateButton = (Button)findViewById(R.id.dueDateButton);
-        duedateText = (EditText) findViewById(R.id.dueDatetext);
+        dueTimeButton = (Button)findViewById(R.id.dueTimeButton);
+        duedateText = (TextView) findViewById(R.id.dueDatetext);
+        duetimeText = (TextView) findViewById(R.id.dueTimetext);
         high = (RadioButton) findViewById(R.id.buttonhigh);
         low = (RadioButton) findViewById(R.id.buttonlow);
+        radiobuttonTodo = (RadioButton)findViewById(R.id.buttontodo);
+        tasknameInputLayout = (TextInputLayout) findViewById(R.id.tasknameInputLayout);
 
         segmentedPriority = (SegmentedGroup)findViewById(R.id.segmentedpriority);
         segmentedStatus = (SegmentedGroup)findViewById(R.id.segmentedstatus);
@@ -146,21 +161,27 @@ public class DetailActivity extends AppCompatActivity implements RadioGroup.OnCh
                                              }
                                          });
 
+        dueTimeButton.setOnClickListener(this);
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = taskNameEditText.getText().toString();
                 String notes = taskNotesEditText.getText().toString();
                 String duedate = duedateText.getText().toString();
-                Log.d(name, notes);
+                if(name == null || name.length() == 0){
+                    tasknameInputLayout.setError("Task name should not be empty");
 
-                if(!isEditType) {
-                    db.addTasks(new Task(name, duedate, notes, status, priority));
-                } else{
-                    db.updateRow(editID, new Task(name, duedate, notes, status, priority));
                 }
+                else {
+                    if (!isEditType) {
+                        db.addTasks(new Task(name, duedate, notes, status, priority));
+                    } else {
+                        db.updateRow(editID, new Task(name, duedate, notes, status, priority));
+                    }
 
-                finish();
+                    finish();
+                }
             }
         });
     }
@@ -179,6 +200,25 @@ public class DetailActivity extends AppCompatActivity implements RadioGroup.OnCh
     @Override
     public void onClick(View v) {
 
+        if(v == dueTimeButton) {
+            // Get Current Time
+            final Calendar c = Calendar.getInstance();
+            mHour = c.get(Calendar.HOUR_OF_DAY);
+            mMinute = c.get(Calendar.MINUTE);
+
+            // Launch Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+
+                            duetimeText.setText(hourOfDay + ":" + minute);
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+        }
     }
 
     @Override

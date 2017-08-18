@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.nidhisingh.todo.R;
 import com.example.nidhisingh.todo.activities.DetailActivity;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
  * Created by nidhisingh on 7/26/17.
  */
 
-public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.TaskViewHolder>  {
+public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapter.TaskViewHolder> {
 
     private ArrayList<Task> listTask;
     private Context mContext;
@@ -39,18 +38,20 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
     }
 
-    public class TaskViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
+    public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView textViewName;
-        public TextView textViewPriority;
+        public TextView textViewDate;
         private Context context;
         private ImageView deleteImage;
+        private View priorityView;
 
         public TaskViewHolder(Context context, View view) {
             super(view);
-            textViewName = (TextView)view.findViewById(R.id.taskname);
-            textViewPriority = (TextView) view.findViewById(R.id.taskpriority);
-            deleteImage = (ImageView)view.findViewById(R.id.deleteimage);
+            textViewName = (TextView) view.findViewById(R.id.taskname1);
+            textViewDate = (TextView) view.findViewById(R.id.taskDate);
+            deleteImage = (ImageView) view.findViewById(R.id.deleteimage);
+            priorityView = view.findViewById(R.id.taskprioritycolor);
             this.context = context;
             view.setOnClickListener(this);
             deleteImage.setOnClickListener(this);
@@ -62,19 +63,19 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
         public void onClick(View v) {
             int position = getAdapterPosition();
 
-            if(position != RecyclerView.NO_POSITION) {
+            if (position != RecyclerView.NO_POSITION) {
                 Task t = listTask.get(position);
                 String status = t.getStatus();
                 long row = t.getId();
-                if(v.getId() == R.id.deleteimage) {
+                if (v.getId() == R.id.deleteimage) {
                     //remove from recycler view list
                     listTask.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
-                    notifyItemRangeChanged(getAdapterPosition(),listTask.size());
+                    notifyItemRangeChanged(getAdapterPosition(), listTask.size());
                     //remove from DB
                     dbHandler.deleteRow(row);
 
-                } else{
+                } else {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailActivity.class);
                     intent.putExtra("taskname", t.getTaskName());
@@ -104,13 +105,15 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
     @Override
     public void onBindViewHolder(final TaskViewHolder holder, int position) {
         holder.textViewName.setText(listTask.get(position).getTaskName());
-        if( listTask.get(position).getPriority().equalsIgnoreCase("high")) {
-            holder.textViewPriority.setTextColor(Color.RED);
-        }else {
-            holder.textViewPriority.setTextColor(Color.GREEN);
+        if (listTask.get(position).getPriority() != null) {
+            if (listTask.get(position).getPriority().equalsIgnoreCase("high")) {
+                holder.priorityView.setBackgroundColor(Color.RED);
+            } else {
+                holder.priorityView.setBackgroundColor(Color.rgb(56, 142, 60));
+                //388e3c
+            }
+            holder.textViewDate.setText(listTask.get(position).getDueDate());
         }
-        holder.textViewPriority.setText(listTask.get(position).getPriority().toUpperCase());
-
     }
 
 

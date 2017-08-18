@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         recyclerViewTasks = (RecyclerView) findViewById(R.id.recyclerViewTask);
-        RecyclerView.ItemDecoration itemDecoration = new
-                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerViewTasks.addItemDecoration(itemDecoration);
+//        RecyclerView.ItemDecoration itemDecoration = new
+//                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+//        recyclerViewTasks.addItemDecoration(itemDecoration);
 
     }
 
@@ -120,9 +120,10 @@ public class MainActivity extends AppCompatActivity {
                 Collections.sort(listTasks, new Comparator<Task>() {
                     @Override
                     public int compare(Task o1, Task o2) {
-                        if(o1.getPriority().equalsIgnoreCase("high"))return -1;
-                        else return 1;
-                    }
+                            if (o1.getPriority().equalsIgnoreCase("high")) return -1;
+                            else return 1;
+                        }
+
                 });
                 return null;
             }
