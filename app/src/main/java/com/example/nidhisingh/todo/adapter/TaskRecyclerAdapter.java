@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,16 +43,22 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
         public TextView textViewName;
         public TextView textViewDate;
+        public TextView textViewTime;
         private Context context;
         private ImageView deleteImage;
         private View priorityView;
+        private TextView categoryTextView;
+        private TextView notesTextView;
 
         public TaskViewHolder(Context context, View view) {
             super(view);
             textViewName = (TextView) view.findViewById(R.id.taskname1);
             textViewDate = (TextView) view.findViewById(R.id.taskDate);
+            textViewTime = (TextView) view.findViewById(R.id.taskTime);
             deleteImage = (ImageView) view.findViewById(R.id.deleteimage);
             priorityView = view.findViewById(R.id.taskprioritycolor);
+            categoryTextView = (TextView) view.findViewById(R.id.categoryTextView);
+            notesTextView = (TextView) view.findViewById(R.id.notestextView);
             this.context = context;
             view.setOnClickListener(this);
             deleteImage.setOnClickListener(this);
@@ -81,9 +88,11 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
                     intent.putExtra("taskname", t.getTaskName());
                     intent.putExtra("tasknotes", t.getTaskNotes());
                     intent.putExtra("duedate", t.getDueDate());
+                    intent.putExtra("duetime", t.getDueTime());
                     intent.putExtra("priority", t.getPriority());
                     intent.putExtra("status", t.getStatus());
                     intent.putExtra("id", t.getId());
+                    intent.putExtra("category", t.getCategory());
                     intent.putExtra("type", "Edittask");
 
                     context.startActivity(intent);
@@ -104,16 +113,20 @@ public class TaskRecyclerAdapter extends RecyclerView.Adapter<TaskRecyclerAdapte
 
     @Override
     public void onBindViewHolder(final TaskViewHolder holder, int position) {
-        holder.textViewName.setText(listTask.get(position).getTaskName());
-        if (listTask.get(position).getPriority() != null) {
-            if (listTask.get(position).getPriority().equalsIgnoreCase("high")) {
-                holder.priorityView.setBackgroundColor(Color.RED);
-            } else {
-                holder.priorityView.setBackgroundColor(Color.rgb(56, 142, 60));
-                //388e3c
-            }
-            holder.textViewDate.setText(listTask.get(position).getDueDate());
+        Task task = listTask.get(position);
+        holder.textViewName.setText(task.getTaskName());
+        holder.categoryTextView.setText("in " + task.getCategory());
+        if (!TextUtils.isEmpty(task.getTaskNotes())) {
+            holder.notesTextView.setText("Notes : " + task.getTaskNotes());
         }
+        if (task.getPriority().equalsIgnoreCase("high")) {
+            holder.priorityView.setBackgroundColor(Color.RED);
+        } else {
+            holder.priorityView.setBackgroundColor(Color.rgb(56, 142, 60));
+            //388e3c
+        }
+        holder.textViewDate.setText(task.getDueDate());
+        holder.textViewTime.setText(task.getDueTime());
     }
 
 

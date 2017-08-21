@@ -32,6 +32,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_NOTES = "notes";
     private static final String KEY_STATUS = "status";
     private static final String KEY_PRIORITY = "priority";
+    private static final String KEY_CATEGORY = "category";
+    private static final String KEY_DUETIME = "duetime";
 
 
     public DatabaseHandler(Context context) {
@@ -48,9 +50,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_DUE_DATE + " TEXT,"
                 + KEY_NOTES + " TEXT,"
                 + KEY_STATUS + " TEXT,"
-                + KEY_PRIORITY + " TEXT" +
+                + KEY_PRIORITY + " TEXT,"
+                + KEY_CATEGORY + " TEXT,"
+                + KEY_DUETIME +
                 ")";
         db.execSQL(CREATE_TASKS_TABLE);
+        System.out.println("New table created");
 
     }
 
@@ -65,6 +70,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_NOTES, task.getTaskNotes()); // task notes
             values.put(KEY_STATUS, task.getStatus()); // task Name
             values.put(KEY_PRIORITY, task.getPriority()); // task Name
+            values.put(KEY_CATEGORY, task.getCategory());
+            values.put(KEY_DUETIME, task.getDueTime());
 
             // Inserting Row
             long rowid = db.insert(TABLE_TASKS, null, values);
@@ -82,7 +89,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_TASKS, new String[]{KEY_ID,
-                        KEY_NAME, KEY_DUE_DATE, KEY_NOTES, KEY_STATUS, KEY_PRIORITY}, KEY_ID + "=?",
+                        KEY_NAME, KEY_DUE_DATE, KEY_NOTES, KEY_STATUS, KEY_PRIORITY, KEY_CATEGORY, KEY_DUETIME}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null) {
@@ -92,56 +99,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         Task task = new Task(
-                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
+                cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
         // return task
         return task;
-    }
-
-
-    public List<Task> getAllTasks() {
-        // array of columns to fetch
-        String[] columns = {
-                KEY_ID,
-                KEY_NAME,
-                KEY_DUE_DATE,
-                KEY_NOTES,
-                KEY_STATUS,
-                KEY_PRIORITY
-        };
-
-        List<Task>taskList = new ArrayList<Task>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-
-        Cursor cursor = db.query(TABLE_TASKS, //Table to query
-                columns,    //columns to return
-                null,        //columns for the WHERE clause
-                null,        //The values for the WHERE clause
-                null,       //group the rows
-                null,       //filter by row groups
-                null); //The sort order
-
-
-        // Traversing through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                Task task = new Task();
-                task.setId(cursor.getLong(0));
-                task.setTaskName(cursor.getString(1));
-                task.setDueDate(cursor.getString(2));
-                task.setTaskNotes(cursor.getString(3));
-                task.setStatus(cursor.getString(4));
-                task.setPriority(cursor.getString(5));
-
-                taskList.add(task);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-
-        // return user list
-        return taskList;
     }
 
 //    public void deleteRow(String taskname){
@@ -169,46 +129,68 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cv.put(KEY_NOTES, t.getTaskNotes());
         cv.put(KEY_STATUS, t.getStatus());
         cv.put(KEY_PRIORITY, t.getPriority());
+        cv.put(KEY_CATEGORY, t.getCategory());
+        cv.put(KEY_DUETIME, t.getDueTime());
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update(TABLE_TASKS, cv, "id = ?", new String[]{Long.toString(row)});
-        db.close();
+        try {
+            db.update(TABLE_TASKS, cv, "id = ?", new String[]{Long.toString(row)});
+
+        }
+        finally {
+            db.close();
+        }
+
 
     }
+    public List<Task> getAllTasks() {
+        // array of columns to fetch
+        String[] columns = {
+                KEY_ID,
+                KEY_NAME,
+                KEY_DUE_DATE,
+                KEY_NOTES,
+                KEY_STATUS,
+                KEY_PRIORITY,
+                KEY_CATEGORY,
+                KEY_DUETIME
 
-    // Getting All Contacts
-    public List<Task> getAllTasks1() {
-        List<Task> contactList = new ArrayList<Task>();
-        // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_TASKS;
+        };
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        List<Task>taskList = new ArrayList<Task>();
 
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        SQLiteDatabase db = this.getReadableDatabase();
 
-        // looping through all rows and adding to list
+
+        Cursor cursor = db.query(TABLE_TASKS, //Table to query
+                columns,    //columns to return
+                null,        //columns for the WHERE clause
+                null,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                null); //The sort order
+
+
+        // Traversing through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 Task task = new Task();
+                task.setId(cursor.getLong(0));
                 task.setTaskName(cursor.getString(1));
                 task.setDueDate(cursor.getString(2));
                 task.setTaskNotes(cursor.getString(3));
                 task.setStatus(cursor.getString(4));
                 task.setPriority(cursor.getString(5));
+                task.setCategory(cursor.getString(6));
+                task.setDueTime(cursor.getString(7));
 
-                System.out.println(cursor.getString(1));
-                System.out.println(cursor.getString(2));
-                System.out.println(cursor.getString(3));
-                System.out.println(cursor.getString(4));
-                System.out.println(cursor.getString(5));
-
-
-                // Adding contact to list
-                contactList.add(task);
+                taskList.add(task);
             } while (cursor.moveToNext());
         }
+        cursor.close();
+        db.close();
 
-        // return contact list
-        return contactList;
+        // return user list
+        return taskList;
     }
 
     public void deleteDB(SQLiteDatabase db) {

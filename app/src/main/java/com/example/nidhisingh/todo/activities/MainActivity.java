@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
 
                 listTasks.clear();
-                if(databaseHelper.getAllTasks1() == null) {
+                if(databaseHelper.getAllTasks() == null) {
                     Log.d("Main:", "######Not getting any tasks!!!");
                 }else {
                     Log.d("Size of list", Integer.toString(listTasks.size()));

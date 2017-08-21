@@ -10,19 +10,22 @@ public class Task {
     String taskName;
     String dueDate;
     String taskNotes;
+    String dueTime;
     String status;
     String priority;
-
+    String category;
 
     public Task() {
 
     }
-    public Task(String taskName, String dueDate, String taskNotes, String status, String priority) {
+    public Task(String taskName, String dueDate, String taskNotes, String status, String priority, String category, String dueTime) {
         this.taskName = taskName;
         this.dueDate = dueDate;
         this.taskNotes = taskNotes;
         this.status = status;
         this.priority = priority;
+        this.category = category;
+        this.dueTime = dueTime;
     }
 
     public String getTaskName() {
@@ -72,6 +75,21 @@ public class Task {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    public String getDueTime() {
+        return dueTime;
+    }
+
+    public void setDueTime(String dueTime) {
+        this.dueTime = dueTime;
     }
 
 }
