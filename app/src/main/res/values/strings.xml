@@ -3,6 +3,17 @@
 
     <string name="status_prompt">Choose the status</string>
     <string name="priority_prompt">Choose the priority</string>
+    <string name="TaskName">Task Name</string>
+    <string name="task_notes">Task Notes</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
+    <string name="todo">ToDo</string>
+    <string name="done">Done</string>
+    <string name="select_category">Select Category</string>
+    <string name="mm_dd_yyyy">MM-DD-YYYY</string>
+    <string name="hh_mm">HH:MM</string>
+    <string name="save">Save</string>
+    <string name="category">category</string>
 
 
     <string-array name="status_array">

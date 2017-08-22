@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:layout_marginRight="5dp"
-        card_view:cardCornerRadius="2dp"
-        card_view:cardElevation="5dp">
+        android:layout_margin="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        card_view:cardCornerRadius="@dimen/radius"
+        card_view:cardElevation="@dimen/margin">
 
         <View
             android:id="@+id/taskprioritycolor"
-            android:layout_width="8dp"
+            android:layout_width="@dimen/margin_end"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true" />
@@ -25,15 +25,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="@dimen/margin_end"
+            android:paddingBottom="@dimen/margin_end"
             android:orientation="horizontal">
 
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingLeft="15dp"
+                android:paddingLeft="@dimen/margin_top"
                 android:orientation="vertical"
                 android:layout_weight="4">
 
@@ -41,7 +41,7 @@
                     android:id="@+id/taskname1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
+                    android:textColor="@android:color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -50,14 +50,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:text="category"
-                    android:textColor="#689f38" />
+                    android:text="@string/category"
+                    android:textColor="@color/categorycolor" />
 
                 <TextView
                     android:id="@+id/notestextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
+                    android:textColor="@android:color/black"
                     android:clickable="true"
                      />
 
@@ -75,17 +75,17 @@
                     android:id="@+id/taskTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
+                    android:textColor="@android:color/black"
                     android:layout_marginRight="4dp"
-                    android:layout_marginLeft="15dp" />
+                    android:layout_marginLeft="@dimen/margin_top" />
 
                 <TextView
                     android:id="@+id/taskDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
+                    android:textColor="@android:color/black"
                     android:layout_marginRight="4dp"
-                    android:layout_marginLeft="15dp" />
+                    android:layout_marginLeft="@dimen/margin_top" />
 
 
             </LinearLayout>
@@ -96,8 +96,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right|center_vertical"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="@dimen/margin_end"
+                android:layout_marginRight="@dimen/margin_end"
                 android:background="@drawable/ic_delete_black_24dp"/>
 
 

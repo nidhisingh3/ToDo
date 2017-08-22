@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin">5dp</dimen>
+    <dimen name="radius">2dp</dimen>
+    <dimen name="margin_end">8dp</dimen>
+    <dimen name="margin_top">15dp</dimen>
+    <dimen name="cardview_height">60dp</dimen>
+    <dimen name="segment_margin">10dp</dimen>
+    <dimen name="cardview_height_max">100dp</dimen>
+    <dimen name="textview_margin_left">50dp</dimen>
+    <dimen name="save_button_height">48dp</dimen>
+    <dimen name="margin_fab">16dp</dimen>
+</resources>
